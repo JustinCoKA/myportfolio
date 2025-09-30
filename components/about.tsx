@@ -44,7 +44,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="text-lg leading-relaxed text-muted-foreground"
+                className="text-lg leading-relaxed text-muted-foreground text-center md:text-left"
               >
                 Trilingual IT student with hands-on experience in data analysis, project management, and process
                 optimization. Skilled in Python, SQL, and cloud platforms, with practical experience leading annotation
@@ -56,7 +56,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="text-lg leading-relaxed text-muted-foreground"
+                className="text-lg leading-relaxed text-muted-foreground text-center md:text-left"
               >
                 Passionate about supporting AI data ecosystems and social content platforms through accurate data
                 modeling and efficient project delivery. Currently contributing to community projects through the City

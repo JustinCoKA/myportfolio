@@ -294,27 +294,42 @@ export function Hero() {
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
+        initial={{ opacity: 0, y: 20, scale: 0.9 }}
         animate={{
           opacity: showScrollIndicator ? 1 : 0,
-          y: showScrollIndicator ? 0 : -10,
+          y: showScrollIndicator ? 0 : 20,
+          scale: showScrollIndicator ? 1 : 0.9,
         }}
-        transition={{ duration: 0.3 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:hidden pointer-events-none z-20"
+        transition={{ duration: 0.4 }}
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 lg:hidden z-50"
       >
         <motion.div
           animate={{
-            y: [0, 10, 0],
+            y: [0, -8, 0],
           }}
           transition={{
-            duration: 1.5,
+            duration: 2,
             repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut",
           }}
-          className="flex flex-col items-center gap-2"
+          className="bg-card/95 backdrop-blur-xl border-2 border-primary/30 rounded-2xl px-6 py-4 shadow-2xl"
         >
-          <span className="text-sm text-muted-foreground font-medium">Scroll to explore</span>
-          <ChevronDown className="h-6 w-6 text-primary" />
+          <div className="flex flex-col items-center gap-2">
+            <motion.div
+              animate={{
+                rotate: [0, 5, -5, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            >
+              <ChevronDown className="h-8 w-8 text-primary" />
+            </motion.div>
+            <span className="text-base font-semibold text-foreground whitespace-nowrap">Scroll to explore</span>
+            <span className="text-xs text-muted-foreground">Swipe up to see more</span>
+          </div>
         </motion.div>
       </motion.div>
     </section>
