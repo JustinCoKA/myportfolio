@@ -5,13 +5,32 @@ import type React from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Download, Mail, Linkedin, Github, Sparkles } from "lucide-react"
+import { Download, Mail, Linkedin, Github, Sparkles, ChevronDown } from "lucide-react"
 import { motion } from "framer-motion"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 
 export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true)
   const constraintsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollIndicator(false)
+      }
+    }
+
+    const timer = setTimeout(() => {
+      setShowScrollIndicator(false)
+    }, 5000)
+
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      clearTimeout(timer)
+    }
+  }, [])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -21,7 +40,6 @@ export function Hero() {
     })
   }
 
-  // Skill badges for the right side animation
   const skills = [
     { name: "Python", color: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
     { name: "SQL", color: "bg-indigo-500/10 text-indigo-500 border-indigo-500/20" },
@@ -43,12 +61,10 @@ export function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16 relative overflow-hidden">
-      {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 pointer-events-none" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Column - Draggable Profile Card */}
           <div ref={constraintsRef} className="relative min-h-[600px] flex items-center">
             <TooltipProvider>
               <Tooltip>
@@ -66,7 +82,6 @@ export function Hero() {
                     className="space-y-6 lg:space-y-8 p-8 rounded-2xl bg-card/50 backdrop-blur-xl border border-border shadow-md hover:shadow-lg transition-shadow cursor-grab active:cursor-grabbing"
                     aria-roledescription="Draggable profile card"
                   >
-                    {/* Animated Badge */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -100,7 +115,6 @@ export function Hero() {
                       </motion.div>
                     </motion.div>
 
-                    {/* Heading with gradient */}
                     <motion.h1
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -112,7 +126,6 @@ export function Hero() {
                       </span>
                     </motion.h1>
 
-                    {/* Subheading */}
                     <motion.p
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -122,7 +135,6 @@ export function Hero() {
                       IT student building data pipelines, APIs, and dashboards in Australia.
                     </motion.p>
 
-                    {/* CTA Buttons */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -148,7 +160,6 @@ export function Hero() {
                       </Button>
                     </motion.div>
 
-                    {/* Social Icons */}
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -195,7 +206,6 @@ export function Hero() {
             </TooltipProvider>
           </div>
 
-          {/* Right Column - Animated Card/Mockup Zone */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -203,12 +213,9 @@ export function Hero() {
             className="relative hidden lg:block"
             onMouseMove={handleMouseMove}
           >
-            {/* Main card container */}
             <div className="relative w-full aspect-square max-w-lg mx-auto">
-              {/* Glowing background effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-3xl blur-3xl" />
 
-              {/* Central card */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -231,7 +238,6 @@ export function Hero() {
                 </div>
               </motion.div>
 
-              {/* Floating skill badges */}
               {skills.map((skill, index) => {
                 const angle = (index / skills.length) * Math.PI * 2
                 const radius = 200
@@ -286,6 +292,46 @@ export function Hero() {
           </motion.div>
         </div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+        animate={{
+          opacity: showScrollIndicator ? 1 : 0,
+          y: showScrollIndicator ? 0 : 20,
+          scale: showScrollIndicator ? 1 : 0.9,
+        }}
+        transition={{ duration: 0.4 }}
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 lg:hidden z-50"
+      >
+        <motion.div
+          animate={{
+            y: [0, -8, 0],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+          }}
+          className="bg-card/95 backdrop-blur-xl border-2 border-primary/30 rounded-2xl px-6 py-4 shadow-2xl"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <motion.div
+              animate={{
+                rotate: [0, 5, -5, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            >
+              <ChevronDown className="h-8 w-8 text-primary" />
+            </motion.div>
+            <span className="text-base font-semibold text-foreground whitespace-nowrap">Scroll to explore</span>
+            <span className="text-xs text-muted-foreground">Swipe up to see more</span>
+          </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

@@ -74,7 +74,7 @@ export function Projects() {
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-12 text-center">Featured Projects</h2>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
@@ -82,6 +82,7 @@ export function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 viewport={{ once: true }}
+                className="min-w-0"
               >
                 {project.slug ? (
                   <Card
@@ -89,23 +90,23 @@ export function Projects() {
                     onClick={() => router.push(`/projects/${project.slug}`)}
                   >
                     <div className="flex-1">
-                      <div className="flex items-start justify-between mb-1">
+                      <div className="flex items-start justify-between mb-1 gap-2">
                         <h3 className="text-2xl font-bold text-balance group-hover:text-primary transition-colors">
                           {project.title}
                         </h3>
-                        <ArrowRight className="h-5 w-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <ArrowRight className="h-5 w-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                       </div>
                       <p className="text-sm text-primary font-medium mb-3">{project.subtitle}</p>
                       <p className="text-sm text-muted-foreground leading-relaxed mb-4">{project.description}</p>
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.tech.map((tech, i) => (
-                          <Badge key={i} variant="outline" className="text-xs">
+                          <Badge key={i} variant="outline" className="text-xs whitespace-nowrap">
                             {tech}
                           </Badge>
                         ))}
                       </div>
                     </div>
-                    <div className="flex gap-2 pt-4 border-t border-border">
+                    <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
                       {project.link && (
                         <Button
                           variant="default"
@@ -134,7 +135,7 @@ export function Projects() {
                           </a>
                         </Button>
                       )}
-                      <Button variant="ghost" size="sm" className="gap-2 ml-auto">
+                      <Button variant="ghost" size="sm" className="gap-2 sm:ml-auto">
                         View Case Study
                         <ArrowRight className="h-4 w-4" />
                       </Button>
@@ -148,13 +149,13 @@ export function Projects() {
                       <p className="text-sm text-muted-foreground leading-relaxed mb-4">{project.description}</p>
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.tech.map((tech, i) => (
-                          <Badge key={i} variant="outline" className="text-xs">
+                          <Badge key={i} variant="outline" className="text-xs whitespace-nowrap">
                             {tech}
                           </Badge>
                         ))}
                       </div>
                     </div>
-                    <div className="flex gap-2 pt-4 border-t border-border">
+                    <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
                       {project.link && (
                         <Button
                           variant="default"
