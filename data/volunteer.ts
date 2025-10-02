@@ -13,29 +13,30 @@ export type VolunteerItem = {
 }
 
 export const volunteer: VolunteerItem[] = [
-  {
-    title: "International Student Leadership Ambassador",
-    org: "City of Sydney — ISLA Program",
-    hours: "60+ hours",
-    period: "2025",
-    location: "Sydney, Australia",
+    {
+    title: "Volunteer — LBW Trust Gala Dinner",
+    org: "The LBW Trust (Learning for a Better World)",
+    hours: "7 hours",
+    period: "24 October 2025",
+    location: "Sydney Cricket Ground (Noble Room), Sydney, Australia",
     bullets: [
-      "Planning and executing community projects to support international students",
-      "Contributing 60 hours of volunteer service to strengthen community engagement",
-      "Strengthening project management and leadership skills through hands-on experience",
-      "Facilitating cross-cultural team collaboration and building inclusive communities",
+      "Assisted with guest registration, welcoming, and event coordination",
+      "Supported silent and live auctions during the fundraising dinner",
+      "Helped with guest seating, logistics, and smooth flow of the evening",
+      "Participated in event set-up and pack-down with the volunteer team",
+      "Engaged with distinguished guests and promoted LBW Trust initiatives",
     ],
     outcomes: [
-      "Successfully organized multiple community events with strong participation from international students",
-      "Developed leadership capabilities through coordinating diverse volunteer teams",
-      "Enhanced cross-cultural communication skills by working with students from various backgrounds",
+      "Contributed to the success of a high-profile charity gala raising funds for international education",
+      "Developed event coordination and hospitality experience in a multicultural environment",
+      "Expanded professional network through interactions with community leaders, alumni, and public figures including Nathan Lyon",
     ],
     links: [
       {
-        label: "ISLA Program Overview",
-        href: "https://www.cityofsydney.nsw.gov.au/",
+        label: "LBW Trust Overview",
+        href: "https://lbwtrust.com.au/",
       },
     ],
-    slug: "isla-ambassador",
+    slug: "lbw-gala-dinner",
   },
 ]
