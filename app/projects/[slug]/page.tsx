@@ -11,45 +11,65 @@ const projects = {
   ursaviour: {
     title: "UrSaviour",
     subtitle: "Grocery Deals Tracker",
-    tagline: "Helping Australians save money on groceries through intelligent deal tracking",
+    tagline: "Personalized savings through AI and automated discount tracking",
     overview:
-      "UrSaviour is a full-stack web application designed to help Australian consumers track weekly supermarket discounts across major retailers. The platform features a watchlist system, price alerts, and a comprehensive database of grocery deals updated weekly.",
+      "UrSaviour is a centralized, lawfully compliant web-based application designed to help Australian consumers—especially international students—make informed grocery shopping decisions. The system simulates weekly discount data using a foundational dataset, automates ETL processing, and provides users with personalized watchlists, discount alerts, and an AI chatbot assistant for better shopping insights.",
     role: "Team Leader, Data Engineering, Full-Stack Developer",
-    timeline: "May 2025 - Present",
+    timeline: "May 2025 - Present, Semester 1 ~ 2, 2025 (Capstone Project)",
     team: "4 members",
-    tech: ["React", "TailwindCSS", "Node.js", "PostgreSQL", "AWS Lambda", "AWS S3", "AWS RDS", "Docker", "ETL"],
+    tech: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Python (FastAPI/Flask)",
+      "MySQL",
+      "AWS Lambda",
+      "AWS S3",
+      "Docker",
+      "ETL",
+      "OpenAI GPT"],
     link: "https://ursaviour.com",
-    github: null,
+    github: "https://github.com/JustinCoKA/UrSaviour-Project",
     challenge:
-      "Major Australian supermarkets publish weekly catalogues as PDFs, making it difficult for consumers to track deals across multiple retailers. The challenge was to automatically extract, normalize, and present this unstructured data in a user-friendly format while maintaining data accuracy and freshness.",
+      "Australian supermarkets restrict web scraping and provide limited API access (e.g., Woolworths API requires approval, Coles has no public API). Consumers—especially international students—struggle to track discounts across multiple stores. The challenge was to design a legal, sustainable, and user-friendly platform that could simulate realistic data and still provide value to end users.",
     solution: [
+      {
+        title: "Simulated Data & PDF Generation",
+        description:
+          "Built a foundational dataset of grocery items. Python scripts apply randomized discounts weekly and generate realistic PDF pamphlets using ReportLab. This ensures compliance with retailer policies while maintaining a continuous flow of data."
+      },
       {
         title: "Serverless ETL Pipeline",
         description:
-          "Architected an automated ETL pipeline using AWS Lambda to process weekly PDF catalogues. The system extracts product information, prices, and discount percentages, then normalizes the data into a structured PostgreSQL database hosted on AWS RDS.",
+          "Automated an AWS-based ETL workflow triggered by new PDFs uploaded to S3. Lambda functions parse, validate, and load data into MySQL on RDS, ensuring up-to-date price and discount information."
       },
       {
-        title: "Data Processing & Storage",
+        title: "Watchlist & Notifications",
         description:
-          "Implemented robust data validation and deduplication logic to ensure accuracy. Raw PDFs are stored in S3 for audit purposes, while processed data is indexed in PostgreSQL for fast querying and filtering.",
+          "Developed a system where users can track favorite items. Background tasks compare watchlist items with new ETL data and trigger personalized email or push notifications when discounts occur."
       },
       {
-        title: "User-Facing Application",
+        title: "AI-Powered Assistant",
         description:
-          "Built a responsive React frontend with TailwindCSS that allows users to browse deals, create watchlists, and receive notifications when tracked items go on sale. The interface is optimized for mobile devices, as most users shop on their phones.",
+          "Integrated OpenAI GPT with product and discount databases, enabling a chatbot to answer user questions, recommend items, and guide them through the platform."
       },
+      {
+        title: "Admin Dashboard",
+        description:
+          "Built an admin panel for monitoring ETL jobs, managing users, and maintaining product datasets, with role-based access control."
+      }
     ],
     impact: [
-      "Automated processing of 50+ weekly catalogues from major retailers",
-      "Reduced manual data entry time by 95% through automated ETL",
-      "Enabled price comparison across 3 major supermarket chains",
-      "Serving 200+ active users tracking grocery deals",
+      "Provides legal, ethical, and sustainable discount tracking without scraping",
+      "Automates weekly generation and ingestion of 50+ simulated grocery discounts",
+      "Delivers personalized watchlist alerts and trend analysis for users",
+      "Introduces AI chatbot support for a smarter and more engaging shopping experience"
     ],
     learnings: [
-      "Gained hands-on experience with serverless architecture and AWS services",
-      "Learned to handle unstructured data extraction from PDFs with varying formats",
-      "Developed skills in database schema design for e-commerce applications",
-      "Improved understanding of full-stack development and deployment workflows",
+      "Hands-on experience with serverless architecture and AWS services",
+      "Built ETL pipelines with automated logging, monitoring, and error handling",
+      "Designed ethical data simulations for testing large-scale applications",
+      "Enhanced teamwork skills by coordinating a 4-member development team across multiple domains"
     ],
   },
   "cancer-data-etl": {
@@ -60,7 +80,7 @@ const projects = {
       "A comprehensive data engineering project focused on analyzing public cancer datasets to identify tumor patterns, survival rates, and treatment outcomes. The project involved building a robust ETL pipeline to process and normalize 1.7 million cancer records from multiple sources.",
     role: "Data Analyst & ETL Engineer",
     timeline: "January 2025 - February 2025",
-    team: "Individual Project",
+    team: "DA Interns",
     tech: ["Python", "Pandas", "NumPy", "PostgreSQL", "Jupyter Notebook", "Matplotlib", "Seaborn", "Plotly"],
     link: null,
     github: "https://github.com/JustinCoKA/ProjectCancerData",
@@ -103,7 +123,7 @@ const projects = {
     overview:
       "SiteSync Solutions is a professional web platform designed for small and medium businesses in the construction and surveying industry. The platform showcases drone services, BIM (Building Information Modeling) solutions, and provides a modern digital presence for technical service providers.",
     role: "Full-Stack Developer & Designer",
-    timeline: "2024 - Present",
+    timeline: "2025 - Present",
     team: "Individual Project",
     tech: ["React", "Next.js", "TailwindCSS", "TypeScript", "Vite", "Vercel"],
     link: "https://sitesync.solutions",

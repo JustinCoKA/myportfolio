@@ -8,7 +8,16 @@ import { motion } from "framer-motion"
 export function Experience() {
   const experiences = [
     {
-      title: "AI Business Analyst",
+      title: "International student leadership and ambassador",
+      company: "City of Sydney",
+      period: "Sep 2025 - Present",
+      type: "volunteer",
+      responsibilities: [
+        "As an Ambassador in the City of Sydney's ISLA Program , I am currently planning and executing a community project to support international students. Through this role, I am contributing 60 hours of volunteer service while actively strengthening my skills in project management , leadership , and cross-cultural team collaboration."
+      ],
+    },
+    {
+      title: "Marketing & Sales Assistant | Digital Dental Solutions",
       company: "ausbiz Consulting",
       period: "Sep 2025 - Present",
       type: "Internship",
@@ -20,7 +29,7 @@ export function Experience() {
       ],
     },
     {
-      title: "Marketing & Sales Assistant | Digital Dental Solutions",
+      title: "AI Business Analyst",
       company: "CM Medical",
       period: "Sep 2025 - Present",
       type: "Part-Time",

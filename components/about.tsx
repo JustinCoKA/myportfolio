@@ -33,7 +33,7 @@ export function About() {
               className="flex justify-center md:justify-start"
             >
               <Avatar className="h-48 w-48 border-4 border-primary/20">
-                <AvatarImage src="/professional-headshot.png" alt="Justin Lee" />
+                <AvatarImage src="/professional-headshot.jpg" alt="Justin Lee" />
                 <AvatarFallback className="text-4xl font-serif">JL</AvatarFallback>
               </Avatar>
             </motion.div>

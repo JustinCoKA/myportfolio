@@ -12,32 +12,12 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">
               © {currentYear} Justin Lee • Personal Site:{" "}
               <a
-                href="https://sitesync.solutions"
+                href="https://www.juhwanjustinlee.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline font-medium"
               >
-                sitesync.solutions
-              </a>
-            </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Built with{" "}
-              <a
-                href="https://nextjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Next.js
-              </a>{" "}
-              • Deployed on{" "}
-              <a
-                href="https://vercel.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Vercel
+                https://www.juhwanjustinlee.com
               </a>
             </p>
           </div>
