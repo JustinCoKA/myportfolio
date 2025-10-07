@@ -64,6 +64,17 @@ export function Experience() {
         "Extract valuable insights through in-depth analysis of cancer datasets",
       ],
     },
+    {
+      title: "Operations Clerk / Squad Leader",
+      company: "Republic of Korea Army Aviation Command",
+      period: "AUG 2019 - MAR 2021",
+      type: "Full-Time",
+      responsibilities: [
+        "Led a 7-member squad at the Republic of Korea Army Aviation Command, enhancing operational readiness",
+        "Maintained 24-hour operations at the brigade Command Center, ensuring effective communication across units",
+        "Supported real-time crisis responses, streamlining processes during high-pressure situations.",
+      ],
+    },
   ]
 
   return (
