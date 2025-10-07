@@ -18,7 +18,7 @@ export function Experience() {
     },
     {
       title: "Marketing & Sales Assistant | Digital Dental Solutions",
-      company: "ausbiz Consulting",
+      company: "CM Medical",
       period: "Sep 2025 - Present",
       type: "Internship",
       responsibilities: [
@@ -30,7 +30,7 @@ export function Experience() {
     },
     {
       title: "AI Business Analyst",
-      company: "CM Medical",
+      company: "Ausbiz Consulting",
       period: "Sep 2025 - Present",
       type: "Part-Time",
       responsibilities: [
@@ -54,7 +54,7 @@ export function Experience() {
     },
     {
       title: "Cancer Data Analyst",
-      company: "ausbiz Consulting",
+      company: "Ausbiz Consulting",
       period: "JAN 2025 - FEB 2025",
       type: "Internship",
       responsibilities: [
