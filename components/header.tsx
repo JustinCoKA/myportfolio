@@ -29,10 +29,17 @@ export function Header() {
     { name: "Volunteer", href: "#volunteer" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
+    { name: "AI Assistant", href: "/ai-agency" },
     { name: "Contact", href: "#contact" },
   ]
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // If it's an external link (starts with /), let it navigate normally
+    if (href.startsWith('/')) {
+      return
+    }
+    
+    // Otherwise, handle as smooth scroll for anchor links
     e.preventDefault()
     const element = document.querySelector(href)
     if (element) {
@@ -53,16 +60,29 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              if (item.href.startsWith('/')) {
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
+                  >
+                    {item.name}
+                  </Link>
+                )
+              }
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
+                >
+                  {item.name}
+                </a>
+              )
+            })}
           </nav>
 
           <div className="flex items-center gap-2">
