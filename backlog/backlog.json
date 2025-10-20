@@ -1,0 +1,180 @@
+{
+  "version": "v1.0",
+  "generated": "2025-10-24",
+  "epics": [
+    {
+      "id": "EPIC-01",
+      "title": "Portfolio Home Page",
+      "stories": [
+        {
+          "id": "ST-001",
+          "story": "As a recruiter I want a clear hero and CTA so I can quickly evaluate the candidate",
+          "acceptance": "Given a user visits the homepage\nWhen the page loads\nThen hero, summary, featured projects and resume CTA are visible",
+          "priority": "MUST",
+          "points": 5,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        },
+        {
+          "id": "ST-002",
+          "story": "As a recruiter I want featured projects on the homepage so I can spot relevant work",
+          "acceptance": "Given a user scrolls to featured projects\nWhen project cards render\nThen each card shows title, short description, tech tags, and link to detail",
+          "priority": "MUST",
+          "points": 3,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        },
+        {
+          "id": "ST-003",
+          "story": "As a visitor I want mobile responsive layout so I can view on my phone",
+          "acceptance": "Given a user on mobile\nWhen they view homepage\nThen layout adapts and touch areas are accessible",
+          "priority": "MUST",
+          "points": 3,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        }
+      ]
+    },
+    {
+      "id": "EPIC-02",
+      "title": "Project Showcase",
+      "stories": [
+        {
+          "id": "ST-004",
+          "story": "As a technical lead I want project detail pages with technical notes so I can evaluate architecture",
+          "acceptance": "Given a user views project detail\nWhen details load\nThen project shows description, tech stack, impact, links to GitHub",
+          "priority": "MUST",
+          "points": 8,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        },
+        {
+          "id": "ST-005",
+          "story": "As a developer I want code links to GitHub so I can review implementations",
+          "acceptance": "Given a user clicks GitHub link\nWhen link opens\nThen repository page loads in new tab",
+          "priority": "SHOULD",
+          "points": 2,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        }
+      ]
+    },
+    {
+      "id": "EPIC-03",
+      "title": "AI Assistant",
+      "stories": [
+        {
+          "id": "ST-006",
+          "story": "As a recruiter I want to ask questions about skills so I can assess fit",
+          "acceptance": "Given a user asks about skills\nWhen AI processes KB-contained question\nThen assistant returns accurate answer",
+          "priority": "MUST",
+          "points": 13,
+          "sprint": "Sprint 2",
+          "status": "To Do"
+        },
+        {
+          "id": "ST-007",
+          "story": "As a recruiter I want example questions so I can quickly try the assistant",
+          "acceptance": "Given a user visits /ai-agency\nWhen page loads\nThen example questions are visible and clickable",
+          "priority": "MUST",
+          "points": 3,
+          "sprint": "Sprint 2",
+          "status": "To Do"
+        },
+        {
+          "id": "ST-008",
+          "story": "As a product owner I want rate limiting to control cost",
+          "acceptance": "Given excessive requests\nWhen rate limit exceeded\nThen API returns 429 and guidance",
+          "priority": "MUST",
+          "points": 5,
+          "sprint": "Sprint 2",
+          "status": "To Do"
+        }
+      ]
+    },
+    {
+      "id": "EPIC-04",
+      "title": "Contact / Referral Portal",
+      "stories": [
+        {
+          "id": "ST-009",
+          "story": "As a recruiter I want to contact the candidate via form",
+          "acceptance": "Given a user fills contact form\nWhen submitted\nThen backend sends email and returns 200",
+          "priority": "MUST",
+          "points": 5,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        },
+        {
+          "id": "ST-010",
+          "story": "As an admin I want honeypot anti-spam to reduce spam messages",
+          "acceptance": "Given a bot fills honeypot\nWhen form submitted\nThen backend ignores and returns 200",
+          "priority": "SHOULD",
+          "points": 2,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        }
+      ]
+    },
+    {
+      "id": "EPIC-05",
+      "title": "CMS / Admin Panel",
+      "stories": [
+        {
+          "id": "ST-011",
+          "story": "As an admin I want to edit project content without coding",
+          "acceptance": "Given admin accesses CMS\nWhen they edit content\nThen updates reflect on site",
+          "priority": "COULD",
+          "points": 13,
+          "sprint": "Backlog",
+          "status": "Open"
+        }
+      ]
+    },
+    {
+      "id": "EPIC-06",
+      "title": "Analytics Dashboard",
+      "stories": [
+        {
+          "id": "ST-012",
+          "story": "As a product owner I want privacy-aware analytics so I can monitor traffic",
+          "acceptance": "Given analytics present\nWhen dashboards viewed\nThen show unique visitors, conversions, popular pages",
+          "priority": "SHOULD",
+          "points": 5,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        }
+      ]
+    },
+    {
+      "id": "EPIC-07",
+      "title": "Accessibility & SEO",
+      "stories": [
+        {
+          "id": "ST-013",
+          "story": "As a site owner I want WCAG AA compliance so the site is accessible",
+          "acceptance": "Given accessibility audit\nWhen tests run\nThen core flows meet WCAG AA",
+          "priority": "MUST",
+          "points": 8,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        }
+      ]
+    },
+    {
+      "id": "EPIC-08",
+      "title": "Deployment & Monitoring",
+      "stories": [
+        {
+          "id": "ST-014",
+          "story": "As a devops engineer I want CI/CD to run builds and deploy",
+          "acceptance": "Given changes pushed to main\nWhen CI runs\nThen build, tests and deploy succeed",
+          "priority": "SHOULD",
+          "points": 5,
+          "sprint": "Sprint 1",
+          "status": "To Do"
+        }
+      ]
+    }
+  ]
+}

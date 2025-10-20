@@ -1,4 +1,7 @@
-// Portfolio context data for AI assistant
+// AI Agency — v1.1 (2025-10-25)
+// Updated by Copilot Revision
+
+// Portfolio context data for AI assistant (enhanced for category-aware retrieval)
 export interface PortfolioContext {
   personal: {
     name: string
@@ -24,6 +27,8 @@ export interface PortfolioContext {
     year: string
     link?: string
     github?: string
+    category_tags?: string[]
+    summary?: string
   }>
   
   experience: Array<{
@@ -40,6 +45,7 @@ export interface PortfolioContext {
     description: string
     impact: string
     period: string
+    category_tags?: string[]
   }>
   
   education: {
@@ -70,6 +76,8 @@ export const portfolioContext: PortfolioContext = {
     {
       name: "UrSaviour",
       description: "Full-stack application to track weekly supermarket discounts with watchlist and alert features. Architected serverless ETL pipeline on AWS using Lambda, S3, and RDS to process unstructured PDF data.",
+      category_tags: ["project", "data-engineering", "serverless"],
+      summary: "Serverless ETL + full-stack app for grocery deals tracking",
       technologies: ["React", "TailwindCSS", "Node.js", "PostgreSQL", "AWS S3", "Docker", "ETL"],
       impact: "Helps users save money on groceries by tracking discounts across major supermarkets",
       role: "Full-stack Developer & Data Engineer",
@@ -80,6 +88,8 @@ export const portfolioContext: PortfolioContext = {
     {
       name: "Cancer Data ETL",
       description: "Analyzed 1.7M cancer records with Python and SQL, identifying tumor patterns and survival rates. Built ETL pipeline to normalize public cancer datasets into PostgreSQL with schema constraints.",
+      category_tags: ["project", "healthcare", "data-engineering"],
+      summary: "Large-scale healthcare ETL and analysis pipeline",
       technologies: ["Python", "Pandas", "PostgreSQL", "ETL", "Jupyter", "Data Analysis"],
       impact: "Processed and analyzed large healthcare dataset to identify important patterns in cancer data",
       role: "Data Engineer & Analyst",
@@ -89,6 +99,8 @@ export const portfolioContext: PortfolioContext = {
     {
       name: "SiteSync Solutions", 
       description: "Full-stack web platform for small and medium businesses offering drone services and BIM solutions. Modern, responsive design with focus on performance and user experience.",
+      category_tags: ["project", "frontend", "smb"],
+      summary: "SMB web platform showcasing responsive design and performance",
       technologies: ["React", "TailwindCSS", "Next.js", "Vite", "TypeScript"],
       impact: "Professional business website serving SMB clients with drone and construction technology services",
       role: "Frontend Developer",
@@ -122,6 +134,7 @@ export const portfolioContext: PortfolioContext = {
       organization: "The LBW Trust (Learning for a Better World)",
       role: "Volunteer — LBW Trust Gala Dinner",
       description: "Assisted with guest registration, welcoming, and event coordination for high-profile charity gala at Sydney Cricket Ground. Supported silent and live auctions during the fundraising dinner.",
+      category_tags: ["volunteer", "events"],
       impact: "Contributed to the success of a charity gala raising funds for international education. Developed event coordination and hospitality experience in a multicultural environment.",
       period: "October 2024"
     }
@@ -193,4 +206,55 @@ INSTRUCTIONS:
 6. If appropriate, mention specific projects or achievements that relate to the question
 
 Remember: You're helping recruiters and potential collaborators learn about Justin's professional background and capabilities.`
+}
+
+// --- Retrieval helpers (simple keyword matching for v1.1)
+// Local ContextSnippet type for retrieval helpers
+type ContextSnippet = { id: string; category: string; title: string; summary: string }
+
+/**
+ * getContextForMessage
+ * Basic retrieval that returns snippets relevant to the message. For v1.1 this is
+ * keyword matching; later replace with embedding similarity.
+ */
+export function getContextForMessage(message: string) {
+  const q = message.toLowerCase()
+  const snippets: Array<{ id: string; category: string; title: string; summary: string }>
+    = []
+
+  // Skills snippet
+  snippets.push({ id: 'skills', category: 'skills', title: 'Core Skills', summary: `Programming: ${portfolioContext.skills.programming_languages.join(', ')}; Frameworks: ${portfolioContext.skills.frameworks.join(', ')}` })
+
+  // Projects relevance
+  for (const p of portfolioContext.projects) {
+    const title = p.name
+    const summary = p.summary || p.description.substring(0, 180)
+    if (q.includes(p.name.toLowerCase()) || p.category_tags?.some((t: string) => q.includes(t))) {
+      snippets.unshift({ id: `project:${p.name}`, category: 'project', title, summary })
+    } else {
+      snippets.push({ id: `project:${p.name}`, category: 'project', title, summary })
+    }
+  }
+
+  // Experience and volunteer
+  snippets.push({ id: 'experience', category: 'experience', title: 'Experience', summary: portfolioContext.experience.map(e => `${e.title} at ${e.company}`).join('; ') })
+  snippets.push({ id: 'volunteer', category: 'volunteer', title: 'Volunteer', summary: portfolioContext.volunteer.map(v => `${v.role} at ${v.organization}`).join('; ') })
+
+  // Return top N (configurable)
+  return snippets.slice(0, 6)
+}
+
+/**
+ * generatePrompt
+ * Builds system+context+user messages for LLM calls
+ */
+export function generatePrompt({ message, context, persona = 'recruiter' }: { message: string; context: any[]; persona?: string }) {
+  const system = `You are a concise, professional assistant answering questions about Justin Lee. Use the context provided and do not invent facts.`
+  const contextText = context.map((c: any) => `- ${c.title}: ${c.summary}`).join('\n')
+  const prompt = [
+    { role: 'system', content: system },
+    { role: 'system', content: `Context:\n${contextText}` },
+    { role: 'user', content: message }
+  ]
+  return prompt
 }

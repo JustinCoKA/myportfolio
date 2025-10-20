@@ -1,14 +1,20 @@
-# AI Agency Implementation Plan
+# AI Agency — v1.1 (2025-10-25)
 
-## Component Architecture
+Updated by Copilot Revision
+
+## Implementation Overview (v1.1)
+
+This document expands the implementation plan to include streaming, category-aware KB retrieval, analytics, and feedback capture. It contains code snippets and integration guidance.
+
+## Component Architecture (Updated)
 
 ### 1. AI Agency Page (`/app/ai-agency/page.tsx`)
-```typescript
+```tsx
 // Main page component
-- Hero section explaining the AI assistant
-- Example questions display
-- Chat interface component
-- Usage guidelines/disclaimer
+// - Hero section explaining the AI assistant
+// - Example questions display
+// - Streaming Chat interface component
+// - Usage guidelines/disclaimer + feedback UI
 ```
 
 ### 2. Chat Interface Component (`/components/ai-chat.tsx`)
@@ -36,77 +42,84 @@ interface Message {
 - Categories: Projects, Experience, Skills, Volunteer, General
 ```
 
-### 4. API Route (`/app/api/ai-chat/route.ts`)
-```typescript
-// POST /api/ai-chat
-interface ChatRequest {
-  message: string;
-  conversationId?: string;
-}
+### 4. API Routes
 
-interface ChatResponse {
-  response: string;
-  conversationId: string;
-}
+`/app/api/ai-chat/route.ts` (SSE Streaming)
 
-// Features:
-- Rate limiting (10 requests/hour per IP)
-- Input validation and sanitization
-- AI provider integration (OpenAI/Claude)
-- Structured context injection
-- Error handling
+```ts
+// Pseudo-code: Server-Sent Events (SSE) streaming handler
+import { NextRequest, NextResponse } from 'next/server'
+import { getContextForMessage, generatePrompt } from '@/lib/ai-context'
+
+export async function GET(request: NextRequest) {
+  // SSE handshake
+  const { searchParams } = new URL(request.url)
+  const message = searchParams.get('message') || ''
+  const persona = searchParams.get('persona') || 'recruiter'
+
+  // Rate limiting and validation (reuse existing helpers)
+  // ... validate message length, rate limit per IP ...
+
+  // Retrieve KB context (category aware)
+  const ctx = getContextForMessage(message)
+  const prompt = generatePrompt({ message, context: ctx, persona })
+
+  // Call streaming LLM API and pipe chunks to client
+  // Example: openai.chat.completions.stream(...) -> yields chunks
+  const stream = await callLLMStreamingAPI(prompt)
+
+  return new Response(stream, {
+    headers: {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      Connection: 'keep-alive',
+    },
+  })
+}
 ```
 
-## Knowledge Base Structure
+`/app/api/ai-feedback/route.ts` (Feedback capture)
 
-### 5. Portfolio Context (`/lib/ai-context.ts`)
-```typescript
-interface PortfolioContext {
-  personal: {
-    name: string;
-    title: string;
-    summary: string;
-    location: string;
-    experience_years: number;
-  };
-  
-  skills: {
-    programming_languages: string[];
-    frameworks: string[];
-    tools: string[];
-    specialties: string[];
-  };
-  
-  projects: Array<{
-    name: string;
-    description: string;
-    technologies: string[];
-    impact: string;
-    role: string;
-    year: string;
-  }>;
-  
-  experience: Array<{
-    company: string;
-    title: string;
-    duration: string;
-    responsibilities: string[];
-    achievements: string[];
-  }>;
-  
-  volunteer: Array<{
-    organization: string;
-    role: string;
-    description: string;
-    impact: string;
-  }>;
-  
-  education: {
-    degree: string;
-    institution: string;
-    graduation_year: string;
-    relevant_coursework?: string[];
-  };
+```ts
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function POST(request: NextRequest) {
+  const body = await request.json()
+  const { conversationId, messageId, feedback, comment } = body
+
+  // Validate and enqueue analytics event (do not store PII)
+  // Example: push to serverless analytics collector or event queue
+
+  return NextResponse.json({ ok: true })
+}
+```
+
+## Knowledge Base & Retrieval
+
+The KB is enhanced to include category tags, short semantic summaries, and retrieval helpers suited for prompt construction and (future) embedding-based retrieval.
+
+Key helpers:
+- `getContextForMessage(message: string)` — returns category-scoped context snippets (skills/projects/experience) with relevance scores
+- `generatePrompt({ message, context, persona })` — constructs the system+user messages with recruiter persona and concise answer instruction
+
+Code sketch (see `/lib/ai-context.ts` for full implementation):
+
+```ts
+export type ContextSnippet = { id: string; category: string; title: string; summary: string; metadata?: Record<string, any> }
+
+export function getContextForMessage(message: string): ContextSnippet[] {
+  // Basic keyword matching or use embeddings (future)
+  // Return top-N relevant snippets across projects, skills, experience
+}
+
+export function generatePrompt({ message, context, persona = 'recruiter' }) {
+  const system = `You are a professional, concise recruiter assistant answering questions about Justin Lee. Keep answers factual and reference projects where relevant.`
+  const contextText = context.map(c => `- ${c.title}: ${c.summary}`).join('\n')
+  return [
+    { role: 'system', content: system },
+    { role: 'system', content: `Context:\n${contextText}` },
+    { role: 'user', content: message }
+  ]
 }
 ```
 
@@ -136,17 +149,24 @@ interface PortfolioContext {
    - Implement click-to-ask functionality
    - Categorize questions by topic
 
-## Environment Variables Needed
+## Environment Variables (additional)
 
 ```env
-# AI Provider (choose one)
+# AI Provider
 OPENAI_API_KEY=your_openai_key
-# OR
-ANTHROPIC_API_KEY=your_anthropic_key
 
-# Rate limiting (optional - Redis for production)
-REDIS_URL=your_redis_url
+# Optional analytics / event collector endpoint
+ANALYTICS_ENDPOINT=https://collector.example.com/events
+
+# Rate limiting (for production)
+REDIS_URL=redis://... (optional)
 ```
+
+## Next Steps
+1. Implement SSE server code using streaming-capable client for chosen LLM (OpenAI/Anthropic)
+2. Implement `getContextForMessage` with keyword boost and fallback to full KB when required
+3. Add `/api/ai-feedback` to record anonymized feedback to analytics
+4. Add client-side rendering for SSE and feedback UI in `components/ai-chat.tsx`
 
 ## Next Steps
 1. Start with the AI Agency page structure

@@ -77,109 +77,153 @@ A clean, fast personal portfolio website for Justin Lee showcasing projects, vol
 
 ## Technical stack
 - Framework: Next.js (app router) + TypeScript
-- Styling: global CSS + PostCSS (no CMS noted in repo)
-- Hosting: Static hosting with serverless functions (e.g., Vercel)
-- Assets: images and resume stored in `/public`
+# AI Agency — v1.1 (2025-10-25)
 
-## Data & integrations
-- Contact endpoint: POST JSON (name, email, message) -> send to personal email (no storage)
-- **AI Chat endpoint**: POST JSON (message, conversation_id) -> AI response with portfolio context
-- **AI Provider**: OpenAI API, Anthropic Claude, or similar for natural language processing
-- Analytics: Include analytics provider (Google Analytics or similar)
-- Content management: In-code editing (no CMS required)
-- Future: Internationalization support (not MVP)
+Updated by Copilot Revision
 
-## Acceptance criteria
-- Homepage loads and renders hero, featured projects, volunteer, and contact CTA.
-- Project detail pages render from available project data and have working links.
-- **AI Agency page displays example questions and functional chat interface.**
-- **AI assistant responds accurately to questions about Justin's background, projects, and skills.**
-- Contact form successfully POSTs to `/api/contact/route`, sends email to personal address, and returns success response.
-- Resume PDF is publicly accessible and downloadable.
-- Analytics tracking is functional on key pages.
-- Site works well for job search scenarios (recruiter can evaluate and contact within 3-5 minutes).
+Document Control
+- Version: v1.1
+- Author: Senior Business Analyst / AI Systems Engineer
+- Date: 2025-10-25
+- Repository: myportfolio (JustinCoKA)
 
-## AI Agency Feature Specification
+## Executive Overview
 
-### Overview
-Interactive AI assistant that allows visitors (especially recruiters) to ask questions about Justin's background, projects, skills, and experience in natural language.
+### Problem statement
+Recruiters and technical leads frequently evaluate candidates based on static resumes, fragmented project links, and non-interactive materials. This leads to longer evaluation cycles and missed opportunities. The Digital Portfolio / AI-Enabled Digital CV provides an authoritative, interactive single source of truth that showcases Justin Lee's technical abilities, projects, and experience — augmented by an AI assistant that answers recruiter questions from a controlled internal knowledge base.
 
-### User Experience
-- **Landing**: Dedicated `/ai-agency` page with clear explanation of the AI assistant's capabilities
-- **Example Questions**: Prominently displayed sample questions to guide users
-- **Chat Interface**: Clean, accessible chat UI with message history
-- **Contextual Responses**: AI provides specific answers based on Justin's actual portfolio data
+### Goals (Updated for v1.1)
+- Reduce recruiter time-to-contact to <= 5 minutes
+- Present verifiable project evidence and impact metrics
+- Deliver >= 95% response accuracy for KB-contained queries (measured in UAT)
+- Achieve WCAG 2.1 AA accessibility for core flows
+- Provide recruiter-focused persona (professional, concise) for AI Assistant
+- Collect anonymized analytics on question categories and feedback for continuous improvement
 
-### Example Questions to Display
-```
-- "What programming languages does Justin specialize in?"
-- "Tell me about Justin's most impactful project"
-- "What kind of volunteer work has Justin done?"
-- "Does Justin have experience with [specific technology]?"
-- "What was Justin's role at [company name]?"
-- "How many years of experience does Justin have in software development?"
-- "What makes Justin different from other developers?"
-- "Can you summarize Justin's educational background?"
-- "What are Justin's career goals and interests?"
-- "Has Justin worked with AI/ML projects before?"
-```
+### Success metrics
+- Median recruiter time-to-contact <= 5 minutes
+- Contact conversions >= 5 qualified messages/month (initial)
+- Lighthouse Performance (desktop) >= 90
+- AI KB accuracy >= 95% (UAT)
+- Target traffic: 200–300 unique visitors/month (initial)
 
-### Technical Implementation
-- **Frontend**: React chat component with TypeScript
-- **Backend**: `/api/ai-chat/route.ts` serverless function
-- **AI Provider**: OpenAI GPT-4 or Anthropic Claude API
-- **Context**: Structured knowledge base from portfolio data (projects, experience, skills, volunteer work)
-- **Rate Limiting**: Prevent abuse (e.g., 10 messages per IP per hour)
-- **Conversation**: Maintain chat history during session (no persistence)
+## Scope
 
-### AI Context Data
-- Extract and structure data from existing components:
-  - Projects data from `data/` folder and project pages
-  - Experience details from `components/experience.tsx`
-  - Skills information from `components/skills.tsx`
-  - Volunteer work from `data/volunteer.ts`
-  - Education from `components/education.tsx`
+### In-scope (MVP)
+- Static/responsive portfolio pages (Home, Projects, Volunteer, Experience, Education)
+- Downloadable resume (public PDF)
+- Contact form with email delivery to personal address (no storage)
+- AI Assistant page (`/ai-agency`) with chat UI and KB-backed responses
+- Privacy-aware analytics and basic SEO
+- Accessibility improvements to reach WCAG 2.1 AA
 
-### Privacy & Security
-- No conversation storage (session-only chat history)
-- Rate limiting to prevent API abuse
-- Input validation and sanitization
-- Clear disclaimer about AI-generated responses
+### Out-of-scope (MVP)
+- External CMS integration (deferred)
+- Long-term message storage or CRM integration
+- Full multi-language support (planned for future releases)
 
-## Risks & mitigations
-- **AI costs**: Implement rate limiting and usage monitoring
-- **Inaccurate responses**: Create comprehensive, structured knowledge base
-- **API abuse**: Rate limiting and input validation
-- Spam through contact form: add captcha / rate limits.  
-- Content updates require code changes: consider a lightweight CMS if frequent non-dev edits are needed.  
-- Images are large: add image optimization or use Next.js Image where appropriate.
+## Personas & Use Cases
 
-## Roadmap / milestones
-- **Immediate**: Configure contact endpoint for email delivery; add analytics.
-- **Week 1**: Audit and improve content for job search optimization (clear project descriptions, impact metrics).
-- **Week 2**: Accessibility review and SEO optimization for recruiter discovery.
-- **Future**: Internationalization infrastructure, advanced analytics, performance optimizations.
+### Recruiter (Primary)
+- Goal: Rapidly verify skills & projects; contact candidate.
+- Use cases: Scan featured projects, ask targeted AI questions about skills/projects, download resume, submit contact form.
 
-## Implementation notes (based on requirements clarification)
-1. **Primary goal**: Job search and personal branding - optimize for recruiter evaluation flow.
-2. **Contact handling**: Send directly to personal email address (to be configured in environment).
-3. **Data retention**: No storage of contact messages - direct email delivery only.
-4. **Analytics**: Include analytics provider integration.
-5. **Content management**: Keep in-code editing approach (no CMS needed).
-6. **Visual design**: Use existing design system and assets in `/public`.
-7. **Resume access**: Public PDF download (no gating required).
-8. **Featured projects**: Review existing project data to determine homepage highlights.
-9. **Accessibility**: Target WCAG 2.1 AA - recommend testing key flows.
-10. **Internationalization**: Plan for future multi-language support (not MVP).
+### Technical Lead
+- Goal: Assess technical depth and architecture.
+- Use cases: Inspect project detail pages, request technical clarifications via AI, open GitHub links.
 
-## Next steps
-- **Immediate**: Configure contact endpoint with personal email delivery.
-- **New Priority**: Implement AI Agency section with chat interface and example questions.
-- **AI Setup**: Configure AI provider API and create knowledge base for portfolio context.
-- **Priority**: Set up analytics tracking on key pages.
-- **Content audit**: Review project descriptions for job search effectiveness.
-- **Future considerations**: Plan internationalization architecture when needed.
+### Collaboration Partner
+- Goal: Understand volunteer/community fit and collaboration opportunities.
+- Use cases: Read volunteer pages, query AI for community engagement history.
 
----
+## Functional Requirements (FR)
 
-**Status**: Final PRD (updated 2025-10-07 with requirements)
+All FRs are traceable and mapped to TDD components and backlog items.
+
+| ID | Title (Short) | Description | MoSCoW |
+|----|----------------|-------------|--------|
+| FR-001 | HOM | Homepage — hero, summary, featured projects, CTA, resume link | Must |
+| FR-002 | PRJ-IDX | Projects index with cards, tech tags, GitHub/live links | Must |
+| FR-003 | PRJ-DET | Project detail with images, tech, impact, links | Must |
+| FR-004 | VOL | Volunteer index & detail pages | Should |
+| FR-005 | CNT | Contact form POST -> `/api/contact/route` -> email delivery | Must |
+| FR-006 | RES | Public resume PDF in `/public/resume/` | Must |
+| FR-007 | AI-AG | AI Recruiter Assistant page `/ai-agency` with streaming chat UI, example questions, and feedback controls | Must |
+| FR-008 | AI-KB | Structured portfolio KB with category tags, semantic summaries and retrieval functions (`lib/ai-context.ts`) | Must |
+| FR-015 | AI-ANL | Analytics event tracking for question categories and feedback | Should |
+| FR-016 | AI-FB | Feedback capture (thumbs up/down) per response with optional comment | Should |
+| FR-009 | ANL | Privacy-aware analytics (Plausible/GA4) on key pages | Should |
+| FR-010 | ACC | WCAG 2.1 AA for core flows | Must |
+| FR-011 | SEO | Title/meta tags and structured data for projects | Should |
+| FR-012 | SEC-RATE | Rate limiting on API endpoints (default 10 req/hr/ip) | Must |
+| FR-013 | AI-SESSION | Session-based chat history (no persistence) | Must |
+| FR-014 | DEPLOY | CI/CD and deployment to Vercel | Should |
+
+## Non-functional Requirements (NFR)
+
+- Performance: Lighthouse >= 90 for desktop; cached pages TTFB < 1s
+- Scalability: Handle initial 200–300 monthly unique visitors; scale via serverless
+- Security: Input validation, sanitization, rate-limiting, PII minimization
+- Privacy: No storage of contact messages; explicit privacy note on contact/AI pages
+- Accessibility: WCAG 2.1 AA for color contrast, keyboard navigation, and semantic structure
+- Maintainability: TypeScript, consistent interfaces, component-driven architecture
+
+## Assumptions & Constraints
+
+- Content editing is in-code (developers update `data/` and components)
+- AI is restricted to internal KB; external browsing and live web searches by the LLM are disallowed
+- LLM calls are optional for MVP (mock responses acceptable for dev)
+- Personal email configured in environment variables for contact delivery
+- Limited budget/time — prioritize Must requirements
+
+## Dependencies & Risks
+
+### Dependencies
+- Vercel or similar for hosting and serverless functions
+- Email provider (Resend or similar) for contact delivery
+- AI provider (OpenAI/Anthropic) if enabling real-time LLM responses
+- Analytics provider (Plausible or privacy-aware GA config)
+
+### Risks & Mitigations
+- AI inaccuracy for out-of-KB queries — Mitigation: KB-only responses, disclaimers, UAT validation
+- Contact spam — Mitigation: Honeypot and API rate-limiting
+- Missing env variables causing build failures — Mitigation: Provide `.env.example` and CI checks
+- Operational cost of LLMs — Mitigation: Rate-limiting and mock-first development
+
+## Acceptance Criteria (Gherkin)
+
+### FR-001 (Homepage)
+Given a user visits the homepage
+When the page loads
+Then the hero, featured projects, and resume CTA are visible and accessible
+
+### FR-005 (Contact)
+Given a visitor fills out the contact form with name, email, and message
+When the form is submitted
+Then `/api/contact/route` returns 200 and the message is delivered to the configured personal email
+
+### FR-007 (AI Assistant - Streaming & Persona)
+Given a visitor opens `/ai-agency`
+When they ask a KB-contained question
+Then the assistant streams a professional, concise response (recruiter persona) and the chat displays partial responses as they arrive
+
+### FR-015 (Analytics)
+Given a user asks a question
+When the response is delivered
+Then an anonymized analytics event is recorded with question category and feedback opportunity
+
+### FR-016 (Feedback Capture)
+Given an assistant response is rendered
+When the user provides thumbs-up or thumbs-down
+Then the feedback event is recorded and an optional comment can be submitted (not stored with PII)
+
+### FR-010 (Accessibility)
+Given an accessibility review is performed
+When core flows (home, project detail, contact) are tested
+Then they meet WCAG 2.1 AA for semantic structure, keyboard navigation, and color contrast
+
+## Appendix
+- References: `docs/ai-agency-implementation.md`, `lib/ai-context.ts`, `docs/ai-agency-feature.md`
+- Revision history: initial PRD (2025-10-07), Week 4 submission update (2025-10-24)
+
+*** End of PRD v1.0 ***
