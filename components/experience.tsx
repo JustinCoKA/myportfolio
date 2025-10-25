@@ -17,20 +17,8 @@ export function Experience() {
       ],
     },
     {
-      title: "Marketing & Sales Assistant | Digital Dental Solutions",
-      company: "CM Medical",
-      period: "Sep 2025 - Present",
-      type: "Internship",
-      responsibilities: [
-        "Contributing to the digital transformation of the dental industry by supporting key technology workflows, including 3D scanning, CAD/CAM, and specialized software",
-        "Responsible for managing sales data and customer records, and optimizing daily administrative processes to improve operational efficiency",
-        "Providing client support and technical troubleshooting for a range of digital dental software solutions",
-        "Sharing product expertise and providing technical assistance at industry seminars, exhibitions, and training events",
-      ],
-    },
-    {
       title: "AI Business Analyst",
-      company: "Ausbiz Consulting",
+      company: "Internship",
       period: "Sep 2025 - Present",
       type: "Part-Time",
       responsibilities: [

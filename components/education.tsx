@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 export function Education() {
   const education = [
     {
-      degree: "Bachelor of Information Technology (Professional)",
+      degree: "Bachelor of Information Technology",
       school: "Victoria University",
       location: "Sydney Campus",
       period: "Oct 2024 - Sep 2026",
