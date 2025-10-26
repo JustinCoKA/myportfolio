@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, Calendar, MapPin, Clock, ExternalLink } from "lucide-react"
 import { volunteer } from "@/data/volunteer"
 import { Card } from "@/components/ui/card"
@@ -87,11 +88,14 @@ export default async function VolunteerDetailPage({ params }: Props) {
 
         {/* Hero Image */}
         {item.heroImage && (
-          <div className="mb-8 rounded-2xl overflow-hidden">
-            <img
+          <div className="mb-8 rounded-2xl overflow-hidden relative w-full h-64 md:h-96">
+            <Image
               src={item.heroImage || "/placeholder.svg"}
               alt={`${item.title} hero image`}
-              className="w-full h-64 md:h-96 object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 896px, 896px"
+              priority
             />
           </div>
         )}
@@ -165,11 +169,13 @@ export default async function VolunteerDetailPage({ params }: Props) {
             <h2 className="text-2xl font-serif font-bold mb-6">Gallery</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {item.gallery.map((image, i) => (
-                <div key={i} className="rounded-lg overflow-hidden">
-                  <img
+                <div key={i} className="rounded-lg overflow-hidden relative w-full h-48 md:h-64">
+                  <Image
                     src={image || "/placeholder.svg"}
                     alt={`${item.title} gallery image ${i + 1}`}
-                    className="w-full h-48 object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 400px, 400px"
                   />
                 </div>
               ))}

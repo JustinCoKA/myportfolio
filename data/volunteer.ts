@@ -14,7 +14,7 @@ export type VolunteerItem = {
 
 export const volunteer: VolunteerItem[] = [
     {
-    title: "Volunteer — LBW Trust Gala Dinner",
+    title: "Volunteer — 2025 LBW Trust Gala Dinner",
     org: "The LBW Trust (Learning for a Better World)",
     hours: "7 hours",
     period: "24 October 2025",
@@ -34,8 +34,19 @@ export const volunteer: VolunteerItem[] = [
     links: [
       {
         label: "LBW Trust Overview",
-        href: "https://lbwtrust.com.au/",
+        href: "https://2025-annual-dinner.raiselysite.com",
       },
+      {
+        label: "Reflection IN LinkedIn",
+        href: "https://www.linkedin.com/posts/dataausjustin_educationlightsuptheworld-thelbwtrust-volunteeringexperience-activity-7387480972776288256-EH81?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEdTT8oBva1fwa9zicx0eKNHiP7o9gSA43o",
+      },
+    ],
+    heroImage: "/2025GalaDinner.png",
+    gallery: [
+      "/placeholder1.svg",
+      "/placeholder2.svg",
+      "/placeholder3.svg",
+      "/placeholder4.svg",
     ],
     slug: "lbw-gala-dinner",
   },

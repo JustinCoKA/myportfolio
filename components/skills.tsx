@@ -2,37 +2,10 @@
 
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Database, Code, Cloud, Wrench, Layout } from "lucide-react"
 import { motion } from "framer-motion"
+import { skillCategories } from "@/data/skills"
 
 export function Skills() {
-  const skillCategories = [
-    {
-      icon: Database,
-      title: "Data & Backend",
-      skills: ["Python", "SQL", "PostgreSQL", "ETL Pipelines", "REST APIs", "Data Modeling"],
-    },
-    {
-      icon: Code,
-      title: "Data Tools",
-      skills: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Plotly", "Scikit-learn"],
-    },
-    {
-      icon: Wrench,
-      title: "Streaming (Basics)",
-      skills: ["Apache Spark", "Apache Kafka", "Apache Flink", "Real-time Processing"],
-    },
-    {
-      icon: Cloud,
-      title: "Infrastructure & DevOps",
-      skills: ["Docker", "AWS S3", "AWS Lambda", "AWS RDS", "Git", "GitHub"],
-    },
-    {
-      icon: Layout,
-      title: "Frontend",
-      skills: ["React", "Next.js", "TailwindCSS", "HTML", "CSS", "JavaScript", "TypeScript"],
-    },
-  ]
 
   return (
     <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/30">

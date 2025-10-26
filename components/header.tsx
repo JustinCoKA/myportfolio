@@ -39,7 +39,13 @@ export function Header() {
       return
     }
     
-    // Otherwise, handle as smooth scroll for anchor links
+    // Check if we're on a different page - if so, navigate to home with anchor
+    if (window.location.pathname !== '/') {
+      window.location.href = `/${href}`
+      return
+    }
+    
+    // Otherwise, handle as smooth scroll for anchor links on the home page
     e.preventDefault()
     const element = document.querySelector(href)
     if (element) {

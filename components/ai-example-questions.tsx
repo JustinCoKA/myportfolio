@@ -12,9 +12,10 @@ interface ExampleQuestion {
 
 interface ExampleQuestionsProps {
   onQuestionSelect: (question: string) => void
+  maxQuestions?: number
 }
 
-export function ExampleQuestions({ onQuestionSelect }: ExampleQuestionsProps) {
+export function ExampleQuestions({ onQuestionSelect, maxQuestions }: ExampleQuestionsProps) {
   const questions: ExampleQuestion[] = [
     {
       id: "1",
@@ -97,7 +98,7 @@ export function ExampleQuestions({ onQuestionSelect }: ExampleQuestionsProps) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {questions.map((q) => {
+        {questions.slice(0, maxQuestions || questions.length).map((q) => {
           const IconComponent = q.icon
           return (
             <Card

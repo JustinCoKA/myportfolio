@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
+import { AISimpleChat } from "@/components/ai-chat-simple"
 import { About } from "@/components/about"
 import { Education } from "@/components/education"
 import { Experience } from "@/components/experience"
@@ -16,6 +17,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <AISimpleChat />
         <Education />
         <Experience />
         <Volunteer />

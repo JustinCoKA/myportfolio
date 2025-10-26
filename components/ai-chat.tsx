@@ -107,9 +107,9 @@ export function AIChat({ initialMessage }: AIChatProps) {
   }
 
   return (
-    <Card className="flex flex-col h-[500px] bg-background">
+    <Card className="flex flex-col h-[500px] lg:h-full bg-background">
       {/* Chat Header */}
-      <div className="flex items-center gap-3 p-4 border-b border-border">
+      <div className="flex items-center gap-3 p-4 border-b border-border flex-shrink-0">
         <div className="flex items-center justify-center w-8 h-8 bg-primary/10 rounded-full">
           <Bot className="h-4 w-4 text-primary" />
         </div>
@@ -120,7 +120,7 @@ export function AIChat({ initialMessage }: AIChatProps) {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
         <AnimatePresence initial={false}>
           {messages.length === 0 && (
             <motion.div
@@ -195,7 +195,7 @@ export function AIChat({ initialMessage }: AIChatProps) {
       </div>
 
       {/* Input Area */}
-      <form onSubmit={handleSubmit} className="p-4 border-t border-border">
+      <form onSubmit={handleSubmit} className="p-4 border-t border-border flex-shrink-0">
         <div className="flex gap-2">
           <Input
             ref={inputRef}
