@@ -2,10 +2,33 @@
 
 import { Card } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { MapPin, Mail, Languages, Calendar } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { MapPin, Mail, Languages, Calendar, Award, GraduationCap } from "lucide-react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function About() {
+  const highlights = [
+    {
+      icon: "/placeholder-logo.svg",
+      title: "AWS Certified",
+      subtitle: "Data Engineer Associate",
+      badge: "2024",
+    },
+    {
+      icon: "/placeholder-logo.svg",
+      title: "Victoria University",
+      subtitle: "Bachelor of IT",
+      badge: "Expected 2026",
+    },
+    {
+      icon: "/placeholder-logo.svg",
+      title: "Udacity",
+      subtitle: "Data Engineering Nanodegree",
+      badge: "2024",
+    },
+  ]
+
   const facts = [
     { icon: MapPin, label: "Location", value: "Sydney, Australia" },
     { icon: Mail, label: "Email", value: "ausjustin12@gmail.com" },
@@ -23,6 +46,56 @@ export function About() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-12 text-center">About Me</h2>
+
+          {/* Highlights Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              {highlights.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="p-6 h-full hover:shadow-xl transition-all hover:border-primary/50 group relative overflow-hidden">
+                    {/* Gradient Background Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    
+                    <div className="relative flex flex-col items-center text-center gap-4">
+                      {/* Icon/Logo */}
+                      <div className="relative w-16 h-16 flex items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                        <Image
+                          src={item.icon}
+                          alt={item.title}
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
+                      </div>
+                      
+                      {/* Content */}
+                      <div className="space-y-2">
+                        <h3 className="font-bold text-lg leading-tight">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-snug">{item.subtitle}</p>
+                      </div>
+                      
+                      {/* Badge */}
+                      <Badge variant="secondary" className="mt-auto">
+                        {item.badge}
+                      </Badge>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 items-start">
             <motion.div
@@ -46,9 +119,7 @@ export function About() {
                 viewport={{ once: true }}
                 className="text-lg leading-relaxed text-muted-foreground text-center md:text-left"
               >
-                Trilingual IT student with hands-on experience in data analysis, project management, and process
-                optimization. Skilled in Python, SQL, and cloud platforms, with practical experience leading annotation
-                and automation projects.
+                Trilingual IT student with a strong passion for software engineering, particularly in data-driven systems and analytics. Experienced in Python, SQL, and cloud platforms, with hands-on involvement in data analysis, automation, and project coordination.
               </motion.p>
 
               <motion.p
@@ -58,9 +129,7 @@ export function About() {
                 viewport={{ once: true }}
                 className="text-lg leading-relaxed text-muted-foreground text-center md:text-left"
               >
-                Passionate about supporting AI data ecosystems and social content platforms through accurate data
-                modeling and efficient project delivery. Currently contributing to community projects through the City
-                of Sydney's ISLA Program.
+                Beyond core software skills, I am especially interested in applying data and digital technologies to transform and modernise traditional industries, bridging software engineering with real-world operational and business contexts. I am currently contributing to community and leadership initiatives through the City of Sydney’s ISLA Program.About Me
               </motion.p>
 
               <motion.div

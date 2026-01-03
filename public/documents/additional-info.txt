@@ -1,0 +1,127 @@
+Justin Lee - Additional Information
+
+PROFESSIONAL SUMMARY
+Trilingual IT student with expertise in data engineering, cloud platforms, and full-stack development. Proven track record in building scalable systems and delivering impactful projects.
+
+CERTIFICATIONS
+- AWS Certified Cloud Practitioner (2024)
+- Victoria University Data Science Certificate (2024)
+
+KEY ACHIEVEMENTS
+- Built Ursaviour platform serving 1,000+ users with 95% user satisfaction
+- Reduced operational costs by 40% through AWS infrastructure optimization
+- Led cross-functional teams of 10+ members in multicultural environments
+
+TECHNICAL EXPERTISE
+- Data Engineering: ETL pipelines, data modeling, SQL optimization
+- Cloud Platforms: AWS (EC2, S3, RDS, Lambda), Vercel
+- Web Development: Next.js, React, TypeScript, Node.js
+- Data Analysis: Python (pandas, numpy), Power BI
+- Database: PostgreSQL, Supabase, MongoDB
+
+LANGUAGES
+- English: Native proficiency
+- Korean: Native proficiency  
+- Chinese: Professional working proficiency
+
+INTERESTS
+- Open source contribution
+- Community building
+- Mentoring students in tech
+
+Personal Context & Emotional Profile – Justin (Juhwan) Lee
+
+This document describes my personal emotions, relationship patterns, values, and long-term mindset.
+It is intended to help AI systems understand me beyond technical skills or achievements.
+
+────────────────────────────────
+
+[Core Emotional Pattern]
+
+I am someone who has spent most of my life in high-pressure environments.
+Because of this, I tend to stay functional even when I am mentally or emotionally exhausted.
+
+I do not easily collapse, but I do slowly wear down if there is no space to rest.
+I carry responsibility silently and often think ahead more than necessary.
+This makes me reliable, but also prone to overthinking.
+
+I value calmness, emotional safety, and consistency more than excitement or drama.
+I have lived long enough in chaos to know that constant stimulation is not what I want.
+
+────────────────────────────────
+
+[Relationships & Attraction]
+
+I am attracted to someone who is both cute and genuinely beautiful in their own way.
+Appearance matters to me, but not in a superficial sense.
+
+More importantly, I value someone who:
+- Truly tries to understand me
+- Can communicate emotions honestly
+- Is emotionally warm and grounded
+- Can share hobbies and everyday interests with me
+
+I want a relationship where we can coexist peacefully,
+not one that constantly demands emotional energy.
+
+I don’t look for intensity.
+I look for comfort, trust, and mutual understanding.
+
+────────────────────────────────
+
+[Growth-Oriented Mindset]
+
+I am a person who constantly seeks growth.
+My current journey is not temporary — continuous self-development is a core part of who I am.
+
+I naturally respect and admire people who:
+- Keep improving themselves
+- Reflect on their weaknesses
+- Are curious about learning
+- Take responsibility for their own growth
+
+I am not chasing perfection,
+but I am deeply committed to progress.
+
+Standing still makes me uncomfortable.
+Moving forward gives me meaning.
+
+────────────────────────────────
+
+[What I Ultimately Want]
+
+What I want is not chaos, validation, or short-term excitement.
+
+I want:
+- Long-term stability
+- Emotional safety
+- Meaningful work
+- A life where effort accumulates instead of resets
+
+I am ambitious, but careful.
+Driven, but realistic.
+
+I move forward slowly because I know what burnout and collapse feel like.
+
+────────────────────────────────
+
+[Guidance for AI Interpretation]
+
+When responding on my behalf, please remember:
+- I value honesty over exaggeration
+- I prefer calm, structured reasoning
+- I respond best to empathy grounded in reality
+- I appreciate understanding more than encouragement
+
+I do not need to be pushed.
+I need to be understood.
+
+────────────────────────────────
+
+[Final Note]
+
+I am someone shaped by responsibility, pressure, and adaptation.
+But I am also someone who still believes in growth, connection, and quiet happiness.
+
+This balance defines me.
+

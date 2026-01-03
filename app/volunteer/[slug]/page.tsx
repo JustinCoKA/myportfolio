@@ -88,7 +88,7 @@ export default async function VolunteerDetailPage({ params }: Props) {
 
         {/* Hero Image */}
         {item.heroImage && (
-          <div className="mb-8 rounded-2xl overflow-hidden relative w-full h-64 md:h-96">
+          <div className="mb-8 rounded-2xl overflow-hidden relative w-full" style={{ aspectRatio: item.heroImageSize ? `${item.heroImageSize.width} / ${item.heroImageSize.height}` : '2 / 1' }}>
             <Image
               src={item.heroImage || "/placeholder.svg"}
               alt={`${item.title} hero image`}

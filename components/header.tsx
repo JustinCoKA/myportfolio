@@ -26,7 +26,7 @@ export function Header() {
     { name: "About", href: "#about" },
     { name: "Education", href: "#education" },
     { name: "Experience", href: "#experience" },
-    { name: "Volunteer", href: "#volunteer" },
+    { name: "Social/Volunteer", href: "#volunteer" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
     { name: "AI Assistant", href: "/ai-agency" },

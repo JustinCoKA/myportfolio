@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getPortfolioPrompt } from "@/lib/ai-context"
+import { GoogleGenerativeAI } from '@google/generative-ai'
+import { supabase } from '@/lib/supabase'
+import { getPortfolioContext } from '@/lib/portfolio-context'
+
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '')
+
+console.log('API Key loaded:', process.env.GOOGLE_API_KEY ? 'Yes' : 'No')
+console.log('API Key first 20 chars:', process.env.GOOGLE_API_KEY?.substring(0, 20))
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -43,7 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { message, conversationId } = body
+    const { message, conversationId, messages = [] } = body
 
     // Input validation
     if (!message || typeof message !== "string") {
@@ -60,22 +67,67 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Sanitize input (basic sanitization)
+    // Sanitize input
     const sanitizedMessage = message.trim().slice(0, 500)
+    const sessionId = conversationId || `conv_${Date.now()}`
 
-    // For now, return a mock response based on common questions
-    // In production, this would integrate with OpenAI or Claude API
-    const mockResponse = generateMockResponse(sanitizedMessage)
+    // 1. 포트폴리오 컨텍스트 생성
+    const portfolioContext = getPortfolioContext()
 
-    const newConversationId = conversationId || `conv_${Date.now()}`
+    // 2. 전체 컨텍스트 (이력서는 향후 추가 예정)
+    const fullContext = portfolioContext
 
-    return NextResponse.json({
-      response: mockResponse,
-      conversationId: newConversationId,
+    // 3. Google Gemini API 호출 (무료 티어)
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" })
+    
+    const systemPrompt = `You are Justin Lee's portfolio assistant. Answer questions ONLY based on the following information about Justin's portfolio, projects, experience, and qualifications.
+
+${fullContext}
+
+Guidelines:
+- Be professional, friendly, and concise
+- Provide specific examples from Justin's projects and experience
+- If asked about something not in the context, politely say "I don't have that information in Justin's portfolio, but I'd be happy to answer questions about his projects, experience, or skills."
+- When discussing technical projects, mention specific technologies and outcomes
+- Keep responses under 150 words unless asked for detailed explanations
+- Use a warm, professional tone that reflects Justin's personality`
+
+    const prompt = `${systemPrompt}\n\nUser Question: ${sanitizedMessage}\n\nAssistant:`
+    
+    const result = await model.generateContent(prompt)
+    const response = await result.response
+    const aiResponse = response.text()
+
+    // 5. 대화 로그 저장
+    const userAgent = request.headers.get('user-agent') || 'Unknown'
+    const ipAddress = request.headers.get('x-forwarded-for') || 
+                      request.headers.get('x-real-ip') || 'Unknown'
+
+    await supabase.from('chat_logs').insert({
+      session_id: sessionId,
+      user_message: sanitizedMessage,
+      ai_response: aiResponse,
+      context_used: fullContext.substring(0, 1000),
+      user_agent: userAgent,
+      ip_address: ipAddress,
     })
 
-  } catch (error) {
+    return NextResponse.json({
+      response: aiResponse,
+      conversationId: sessionId,
+    })
+
+  } catch (error: any) {
     console.error("AI Chat API Error:", error)
+    
+    // Google Gemini API 오류 처리
+    if (error?.message?.includes('API key')) {
+      return NextResponse.json(
+        { error: 'AI service configuration error. Please contact support.' },
+        { status: 500 }
+      )
+    }
+
     return NextResponse.json(
       { error: "Internal server error. Please try again later." },
       { status: 500 }
@@ -83,6 +135,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// 아래 목업 함수는 더 이상 사용되지 않음 (실제 AI API 사용)
 function generateMockResponse(message: string): string {
   const lowerMessage = message.toLowerCase()
 

@@ -14,18 +14,7 @@ export const experiences: ExperienceItem[] = [
     type: "volunteer",
     responsibilities: [
       "As an Ambassador in the City of Sydney's ISLA Program , I am currently planning and executing a community project to support international students. Through this role, I am contributing 60 hours of volunteer service while actively strengthening my skills in project management , leadership , and cross-cultural team collaboration.",
-    ],
-  },
-  {
-    title: "AI Business Analyst",
-    company: "Internship",
-    period: "Sep 2025 - Present",
-    type: "Part-Time",
-    responsibilities: [
-      "Defined business requirements through stakeholder engagement",
-      "Designed PoC and iterative prototypes with v0.app & LLM tools",
-      "Applied data validation, KPI tracking, and ROI analysis",
-      "Delivered reports and demos bridging technical and business teams",
+      "Project: Culture Fest: Stories, Flavours, and Friendship — GLOW (Grow, Link, Orientate, Welcome) Initiative  Event Date: December 6, 2025 | Redfern Community Centre Role: - Led the Korean Food Workshop, guiding participants in hands-on preparation of traditional dishes while sharing cultural stories. - Collaborated with multicultural ambassador teams to design a 5-hour cultural exchange event connecting over 70 participants from diverse backgrounds. - Supported the development of the event structure, run sheet, and risk assessment, ensuring compliance and participant safety. - Contributed to content for marketing, social media, and “Passport to Taste” engagement activities. Promoted inclusion and cross-cultural understanding among international and local students through interactive presentations and food experiences."
     ],
   },
   {
@@ -41,15 +30,16 @@ export const experiences: ExperienceItem[] = [
     ],
   },
   {
-    title: "Cancer Data Analyst",
+    title: "Software Engineering Intern – Data Systems",
     company: "Ausbiz Consulting",
     period: "JAN 2025 - FEB 2025",
     type: "Internship",
     responsibilities: [
-      "Evaluate data analysis technologies including PostgreSQL, Google Colab, and Generative AI",
-      "Provide data-driven recommendations for improving healthcare strategies",
-      "Enhance data exploration, visualization, and interpretation skills to communicate findings effectively",
-      "Extract valuable insights through in-depth analysis of cancer datasets",
+      "Developed Python- and SQL-based data processing pipelines to support automated data validation and reproducibility",
+      "Implemented testing workflows to improve data quality and reliability",
+      "Built data outputs to support operational and stakeholder decision-making",
+      "Collaborated with cross-functional teams in an Agile environment",
+      "Supported software engineering tasks aligned with engineering intern responsibilities",
     ],
   },
   {

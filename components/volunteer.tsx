@@ -19,7 +19,7 @@ export function Volunteer() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-12 text-center">Volunteer Work</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-12 text-center">Volunteer/Social Work</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {volunteer.map((item, index) => (

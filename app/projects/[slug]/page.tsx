@@ -1,13 +1,15 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Target } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { projects } from "@/data/projects"
 
-// Project data with detailed case study information
-const projects = {
+// Legacy project data for backwards compatibility
+const legacyProjects = {
   ursaviour: {
     title: "UrSaviour",
     subtitle: "Grocery Deals Tracker",
@@ -163,13 +165,15 @@ const projects = {
 }
 
 export function generateStaticParams() {
-  return Object.keys(projects).map((slug) => ({
-    slug,
-  }))
+  return projects
+    .filter(p => p.slug)
+    .map((project) => ({
+      slug: project.slug as string,
+    }))
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
-  const project = projects[params.slug as keyof typeof projects]
+  const project = projects.find(p => p.slug === params.slug)
 
   if (!project) {
     return {
@@ -179,12 +183,13 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
 
   return {
     title: `${project.title} - Justin Lee`,
-    description: project.tagline,
+    description: project.subtitle,
   }
 }
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = projects[params.slug as keyof typeof projects]
+  const project = projects.find(p => p.slug === params.slug)
+  const legacyProject = legacyProjects[params.slug as keyof typeof legacyProjects]
 
   if (!project) {
     notFound()
@@ -206,7 +211,23 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <div className="mb-12">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold mb-4 text-balance">{project.title}</h1>
           <p className="text-xl sm:text-2xl text-primary font-medium mb-4">{project.subtitle}</p>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-6">{project.tagline}</p>
+          
+          {/* Project Images */}
+          {project.images && project.images.length > 0 && (
+            <div className="my-8 rounded-lg overflow-hidden border">
+              <Image
+                src={project.images[0]}
+                alt={project.title}
+                width={1200}
+                height={675}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+          )}
+
+          {/* Short Description */}
+          <p className="text-lg text-muted-foreground leading-relaxed mb-6">{project.description}</p>
 
           {/* Tech Stack */}
           <div className="flex flex-wrap gap-2 mb-6">
@@ -223,7 +244,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               <Button variant="default" className="gap-2" asChild>
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="h-4 w-4" />
-                  Visit Live Site
+                  Play Demo Video
                 </a>
               </Button>
             )}
@@ -240,89 +261,171 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
         <Separator className="my-12" />
 
-        {/* Project Info Cards */}
-        <div className="grid sm:grid-cols-3 gap-4 mb-12">
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <Calendar className="h-5 w-5 text-primary" />
-              <h3 className="font-semibold">Timeline</h3>
+        {/* Project Info Cards - Only show if legacy data exists */}
+        {legacyProject && (
+          <div className="grid sm:grid-cols-3 gap-4 mb-12">
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-2">
+                <Calendar className="h-5 w-5 text-primary" />
+                <h3 className="font-semibold">Timeline</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">{legacyProject.timeline}</p>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-2">
+                <Users className="h-5 w-5 text-primary" />
+                <h3 className="font-semibold">Team</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">{legacyProject.team}</p>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-2">
+                <Target className="h-5 w-5 text-primary" />
+                <h3 className="font-semibold">Role</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">{legacyProject.role}</p>
+            </Card>
+          </div>
+        )}
+
+        {/* Detailed Description */}
+        {project.detailedDescription && (
+          <section className="mb-12">
+            <div className="prose prose-lg max-w-none">
+              <div className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
+                {project.detailedDescription}
+              </div>
             </div>
-            <p className="text-sm text-muted-foreground">{project.timeline}</p>
-          </Card>
+          </section>
+        )}
 
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <Users className="h-5 w-5 text-primary" />
-              <h3 className="font-semibold">Team</h3>
-            </div>
-            <p className="text-sm text-muted-foreground">{project.team}</p>
-          </Card>
+        {/* Role & Contribution */}
+        {project.role && (
+          <section className="mb-12">
+            <Card className="p-6 bg-primary/5 border-primary/20">
+              <div className="prose prose-lg max-w-none">
+                <div className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
+                  {project.role}
+                </div>
+              </div>
+            </Card>
+          </section>
+        )}
 
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <Target className="h-5 w-5 text-primary" />
-              <h3 className="font-semibold">Role</h3>
-            </div>
-            <p className="text-sm text-muted-foreground">{project.role}</p>
-          </Card>
-        </div>
-
-        {/* Overview */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-serif font-bold mb-4">Overview</h2>
-          <p className="text-muted-foreground leading-relaxed">{project.overview}</p>
-        </section>
-
-        {/* Challenge */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-serif font-bold mb-4">The Challenge</h2>
-          <Card className="p-6 bg-muted/50">
-            <p className="text-muted-foreground leading-relaxed">{project.challenge}</p>
-          </Card>
-        </section>
+        {/* Problem Statement */}
+        {project.problemStatement && (
+          <section className="mb-12">
+            <Card className="p-6 bg-muted/50">
+              <div className="prose prose-lg max-w-none">
+                <div className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
+                  {project.problemStatement}
+                </div>
+              </div>
+            </Card>
+          </section>
+        )}
 
         {/* Solution */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-serif font-bold mb-6">The Solution</h2>
-          <div className="space-y-6">
-            {project.solution.map((item, index) => (
-              <Card key={index} className="p-6">
-                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-              </Card>
-            ))}
-          </div>
-        </section>
+        {project.solution && (
+          <section className="mb-12">
+            <Card className="p-6">
+              <div className="prose prose-lg max-w-none">
+                <div className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
+                  {project.solution}
+                </div>
+              </div>
+            </Card>
+          </section>
+        )}
 
         {/* Impact */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-serif font-bold mb-6">Impact & Results</h2>
-          <Card className="p-6">
-            <ul className="space-y-3">
-              {project.impact.map((item, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="text-primary font-bold mt-1">•</span>
-                  <span className="text-muted-foreground leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </Card>
-        </section>
+        {project.impact && (
+          <section className="mb-12">
+            <Card className="p-6 bg-muted/50">
+              <div className="prose prose-lg max-w-none">
+                <div className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
+                  {project.impact}
+                </div>
+              </div>
+            </Card>
+          </section>
+        )}
 
         {/* Learnings */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-serif font-bold mb-6">Key Learnings</h2>
-          <Card className="p-6 bg-primary/5 border-primary/20">
-            <ul className="space-y-3">
-              {project.learnings.map((item, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="text-primary font-bold mt-1">•</span>
-                  <span className="text-muted-foreground leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </Card>
-        </section>
+        {project.learnings && (
+          <section className="mb-12">
+            <Card className="p-6 bg-primary/5 border-primary/20">
+              <div className="prose prose-lg max-w-none">
+                <div className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
+                  {project.learnings}
+                </div>
+              </div>
+            </Card>
+          </section>
+        )}
+
+        {/* Legacy Overview - Only show if no detailed description exists */}
+        {!project.detailedDescription && legacyProject && (
+          <>
+            <section className="mb-12">
+              <h2 className="text-3xl font-serif font-bold mb-4">Overview</h2>
+              <p className="text-muted-foreground leading-relaxed">{legacyProject.overview}</p>
+            </section>
+
+            {/* Challenge */}
+            <section className="mb-12">
+              <h2 className="text-3xl font-serif font-bold mb-4">The Challenge</h2>
+              <Card className="p-6 bg-muted/50">
+                <p className="text-muted-foreground leading-relaxed">{legacyProject.challenge}</p>
+              </Card>
+            </section>
+
+            {/* Solution */}
+            <section className="mb-12">
+              <h2 className="text-3xl font-serif font-bold mb-6">The Solution</h2>
+              <div className="space-y-6">
+                {legacyProject.solution.map((item, index) => (
+                  <Card key={index} className="p-6">
+                    <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                  </Card>
+                ))}
+              </div>
+            </section>
+
+            {/* Impact */}
+            <section className="mb-12">
+              <h2 className="text-3xl font-serif font-bold mb-6">Impact & Results</h2>
+              <Card className="p-6">
+                <ul className="space-y-3">
+                  {legacyProject.impact.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="text-primary font-bold mt-1">•</span>
+                      <span className="text-muted-foreground leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </section>
+
+            {/* Learnings */}
+            <section className="mb-12">
+              <h2 className="text-3xl font-serif font-bold mb-6">Key Learnings</h2>
+              <Card className="p-6 bg-primary/5 border-primary/20">
+                <ul className="space-y-3">
+                  {legacyProject.learnings.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="text-primary font-bold mt-1">•</span>
+                      <span className="text-muted-foreground leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </section>
+          </>
+        )}
 
         {/* Back to Projects */}
         <div className="text-center pt-8">
