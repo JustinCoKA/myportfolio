@@ -77,6 +77,26 @@ export function ExampleQuestions({ onQuestionSelect, maxQuestions }: ExampleQues
       category: "skills",
       icon: Bot,
     },
+
+    {
+  id: "11",
+  question: "What kind of person is Justin beyond his technical skills?",
+  category: "general",
+  icon: Heart,
+},
+{
+  id: "12",
+  question: "What experiences shaped how Justin approaches work and personal growth?",
+  category: "general",
+  icon: Sparkles,
+},
+{
+  id: "13",
+  question: "What values does Justin look for in people he works or connects with?",
+  category: "general",
+  icon: Users,
+},
+
   ]
 
   const categoryColors = {
